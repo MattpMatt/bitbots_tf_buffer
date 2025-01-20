@@ -14,7 +14,7 @@ This package aims to solve this problem by moving the TF buffer and listener to 
 
 While spinning up an additional Node is not ideal, the performance gain is significant and the overhead of the additional node is negligible compared to the performance gain.
 
-In addition to that, this solution also significantly reduces the amount of executor deadlocks that might be considered and enables the usage of an single threaded executor for the rclpy node instead of the multi-threaded executor in many cases resulting in further performance gains.
+In addition to that, this solution also reduces the amount of executor deadlock scenarios and enables the usage of an single threaded executor for the rclpy node instead of the multi-threaded executor in many cases resulting in further performance gains.
 
 ## Usage
 
