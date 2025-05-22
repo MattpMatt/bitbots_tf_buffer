@@ -8,7 +8,7 @@
 #include <builtin_interfaces/msg/duration.hpp>
 #include <builtin_interfaces/msg/time.hpp>
 #include <geometry_msgs/msg/transform_stamped.hpp>
-#include <rclcpp/experimental/executors/events_executor/events_executor.hpp>
+#include <rclcpp/executors/multi_threaded_executor.hpp>
 #include <rclcpp/qos.hpp>
 #include <rclcpp/serialization.hpp>
 #include <ros2_python_extension/serialization.hpp>
@@ -55,7 +55,7 @@ class Buffer {
     listener_ = std::make_shared<tf2_ros::TransformListener>(*buffer_, node_, false);
 
     // create executor and start thread spinning the executor
-    executor_ = std::make_shared<rclcpp::experimental::executors::EventsExecutor>();
+    executor_ = std::make_shared<rclcpp::executors::MultiThreadedExecutor>();
     executor_->add_node(node_);
     thread_ = std::make_shared<std::thread>([this]() {
       while (rclcpp::ok()) {
@@ -104,7 +104,7 @@ class Buffer {
   std::shared_ptr<tf2_ros::Buffer> buffer_;
   std::shared_ptr<tf2_ros::TransformListener> listener_;
   std::shared_ptr<std::thread> thread_;
-  std::shared_ptr<rclcpp::experimental::executors::EventsExecutor> executor_;
+  std::shared_ptr<rclcpp::executors::MultiThreadedExecutor> executor_;
 };
 
 PYBIND11_MODULE(cpp_wrapper, m) {
